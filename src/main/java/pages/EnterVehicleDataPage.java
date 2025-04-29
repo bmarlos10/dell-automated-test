@@ -1,8 +1,11 @@
 package pages;
 
+import data.TestData;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+import utils.ActionUtils;
 import utils.DriverFactory;
 import utils.WaitUtils;
 
@@ -56,46 +59,21 @@ public class EnterVehicleDataPage {
 
     public void fillVehicleData() {
         WaitUtils.waitForElementVisible(makeDropdown);
-        makeDropdown.sendKeys("Audi");
-        WaitUtils.customWait(500);
 
-        modelDropdown.sendKeys("Scooter");
-        WaitUtils.customWait(500);
+        new Select(makeDropdown).selectByVisibleText(TestData.MAKE);
+        new Select(modelDropdown).selectByVisibleText(TestData.MODEL);
+        ActionUtils.type(cylinderCapacityInput, TestData.CYLINDER_CAPACITY);
+        ActionUtils.type(enginePerformanceInput, TestData.ENGINE_PERFORMANCE);
+        ActionUtils.type(dateOfManufactureInput, TestData.DATE_OF_MANUFACTURE);
+        new Select(numberOfSeatsDropdown).selectByVisibleText(TestData.NUMBER_OF_SEATS);
+        new Select(numberOfSeatsMotorcycleDropdown).selectByVisibleText(TestData.NUMBER_OF_SEATS_MOTORCYCLE); // <- AQUI
+        new Select(fuelTypeDropdown).selectByVisibleText(TestData.FUEL_TYPE);
+        ActionUtils.type(payloadInput, TestData.PAYLOAD);
+        ActionUtils.type(totalWeightInput, TestData.TOTAL_WEIGHT);
+        ActionUtils.type(listPriceInput, TestData.LIST_PRICE);
+        ActionUtils.type(licensePlateNumberInput, TestData.LICENSE_PLATE_NUMBER);
+        ActionUtils.type(annualMileageInput, TestData.ANNUAL_MILEAGE);
 
-        cylinderCapacityInput.sendKeys("1000");
-        WaitUtils.customWait(500);
-
-        enginePerformanceInput.sendKeys("1200");
-        WaitUtils.customWait(500);
-
-        dateOfManufactureInput.sendKeys("01/01/2020");
-        WaitUtils.customWait(500);
-
-        numberOfSeatsDropdown.sendKeys("2");
-        WaitUtils.customWait(500);
-
-        numberOfSeatsMotorcycleDropdown.sendKeys("2");
-        WaitUtils.customWait(500);
-
-        fuelTypeDropdown.sendKeys("Petrol");
-        WaitUtils.customWait(500);
-
-        payloadInput.sendKeys("500");
-        WaitUtils.customWait(500);
-
-        totalWeightInput.sendKeys("1500");
-        WaitUtils.customWait(500);
-
-        listPriceInput.sendKeys("30000");
-        WaitUtils.customWait(500);
-
-        licensePlateNumberInput.sendKeys("ABC1234");
-        WaitUtils.customWait(500);
-
-        annualMileageInput.sendKeys("15000");
-        WaitUtils.customWait(500);
-
-        nextButton.click();
-        WaitUtils.customWait(1000);
+        ActionUtils.click(nextButton);
     }
 }

@@ -4,14 +4,9 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.*;
+import utils.ActionUtils;
 import utils.DriverFactory;
-
-import java.time.Duration;
 
 import static org.junit.Assert.assertTrue;
 
@@ -48,14 +43,9 @@ public class FormSteps {
 
     @Then("I should see the success message")
     public void i_should_see_the_success_message() {
-        WebDriver driver = DriverFactory.getDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-
-        WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//*[contains(text(), 'Sending e-mail success!')]")
-        ));
-
-        assertTrue(successMessage.isDisplayed());
+        assertTrue(
+                ActionUtils.waitForTextToBeVisible("Sending e-mail success!")
+        );
     }
 
     @After

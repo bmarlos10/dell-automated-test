@@ -1,10 +1,13 @@
 package pages;
 
+import data.TestData;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.ActionUtils;
 import utils.DriverFactory;
 import utils.WaitUtils;
+import org.openqa.selenium.support.ui.Select;
 
 public class EnterInsurantDataPage {
 
@@ -19,7 +22,7 @@ public class EnterInsurantDataPage {
     WebElement lastNameInput;
 
     @FindBy(id = "birthdate")
-    WebElement birthdateInput;
+    WebElement birthDateInput;
 
     @FindBy(xpath = "//input[@id='gendermale']/following-sibling::span")
     WebElement genderMaleRadio;
@@ -47,37 +50,17 @@ public class EnterInsurantDataPage {
 
     public void fillInsurantData() {
         WaitUtils.waitForElementVisible(firstNameInput);
-        firstNameInput.sendKeys("John");
-        WaitUtils.customWait(500);
 
-        lastNameInput.sendKeys("Doe");
-        WaitUtils.customWait(500);
-
-        birthdateInput.sendKeys("01/01/1990");
-        WaitUtils.customWait(500);
-
-        genderMaleRadio.click();
-        WaitUtils.customWait(500);
-
-        streetAddressInput.sendKeys("123 Main Street");
-        WaitUtils.customWait(500);
-
-        countryDropdown.sendKeys("Brazil");
-        WaitUtils.customWait(500);
-
-        zipCodeInput.sendKeys("70000000");
-        WaitUtils.customWait(500);
-
-        cityInput.sendKeys("Brasilia");
-        WaitUtils.customWait(500);
-
-        occupationDropdown.sendKeys("Employee");
-        WaitUtils.customWait(500);
-
-        hobbySpeedingCheckbox.click();
-        WaitUtils.customWait(500);
-
-        nextButton.click();
-        WaitUtils.customWait(1000);
+        ActionUtils.type(firstNameInput, TestData.FIRST_NAME);
+        ActionUtils.type(lastNameInput, TestData.LAST_NAME);
+        ActionUtils.type(birthDateInput, TestData.DATE_OF_BIRTH);
+        ActionUtils.click(genderMaleRadio);
+        ActionUtils.type(streetAddressInput, TestData.STREET_ADDRESS);
+        new Select(countryDropdown).selectByVisibleText(TestData.COUNTRY);
+        ActionUtils.type(zipCodeInput, TestData.ZIP_CODE);
+        ActionUtils.type(cityInput, TestData.CITY);
+        new Select(occupationDropdown).selectByVisibleText(TestData.OCCUPATION);
+        ActionUtils.click(hobbySpeedingCheckbox);
+        ActionUtils.click(nextButton);
     }
 }
