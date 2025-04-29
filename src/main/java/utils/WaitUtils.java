@@ -8,10 +8,21 @@ import java.time.Duration;
 
 public class WaitUtils {
 
-    private static final int TIMEOUT = 10;
+    private static final int TIMEOUT = 1000;
+
 
     public static void waitForElementVisible(WebElement element) {
         WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(TIMEOUT));
         wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+
+    public static void customWait(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            e.printStackTrace();
+        }
     }
 }
